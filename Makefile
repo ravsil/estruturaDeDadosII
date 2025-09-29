@@ -1,10 +1,28 @@
-all: compile execute clean
+all: compile execute clear
+
+generate: gerador_binario.cpp
+	g++ gerador_binario.cpp -o gerador_binario
+	./gerador_binario data.dat 100
+	rm -f gerador_binario
 
 compile:
-	g++ main.cpp -o main
+	g++ naturalSelection.cpp -o ns
+	g++ generator.cpp -o g
+	g++ printer.cpp -o p
 
 execute:
-	./main test.dat
+	./g data.dat 100
+	./ns data.dat
+	./p data.dat
 
-clean:
-	rm -f main
+reexecute:
+	./ns data.dat
+	./p data.dat
+
+clear:
+	rm -f ns g p
+
+clearall:
+	rm -f ns g p
+	rm -f data.dat
+	rm -rf particao*
